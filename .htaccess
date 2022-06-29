@@ -1,0 +1,7 @@
+# Instrucciones en Apache para indicarle al servidor como tratar las peticiones para que pasen unicamente por el archivo index.php
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.+)$ index.php?uri=$1 [QSA,L]
+</IfModule>
