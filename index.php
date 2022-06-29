@@ -1,2 +1,5 @@
 <?php
-echo "Hello world";
+
+$app = new Application();
+
+$app->router;
