@@ -15,6 +15,7 @@ class Router
      * ============================================================================================
      */
     public Request $request;
+    public Response $response;
     protected array $routes = [];
 
     /**
@@ -22,9 +23,10 @@ class Router
      * Application constructor.
      * ============================================================================================
      */
-    public function __construct(Request $request)
+    public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
+        $this->response = $response;
     }
 
     /**
@@ -51,6 +53,7 @@ class Router
 
         if ($callback === false)
         {
+            $this->response->setStatusCode (404);
             return "Not found";
         }
 
