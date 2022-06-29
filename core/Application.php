@@ -5,19 +5,31 @@ namespace app\core;
 class Application
 {
     /**
-     * Propiedad publica de tipo de la clase Router
+     * ============================================================================================
+     * Propiedades de la clase
+     * ============================================================================================
      */
     public Router $router;
+    public Request $request;
 
     /**
+     * ============================================================================================
      * Application constructor.
+     * ============================================================================================
      */
     public function __construct()
     {
-        $this->router = new Router();
+        $this->request = new Request();
+        $this->router = new Router($this->request);
     }
 
+    /**
+     * ============================================================================================
+     * Método run de la aplicación
+     * ============================================================================================
+     */
     public function run()
     {
+        $this->router->resolve();
     }
 }
