@@ -19,19 +19,15 @@ use app\core\Application;
  * Se crea una nueva instancia de la clase Application
  * ================================================================================================
  */
-$app = new Application();
+$app = new Application(dirname (__DIR__));
 
 /**
  * ================================================================================================
  * Routes
  * ================================================================================================
  */
-$app->router->get('/', function(){
-    return "Greetings from index";
-});
-$app->router->get('/contact', function(){
-    return "Contact form here";
-});
+$app->router->get('/', 'home');
+$app->router->get('/contact', 'contact');
 
 /**
  * ================================================================================================

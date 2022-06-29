@@ -14,7 +14,7 @@ class Request
     public function getPath()
     {
         // Sólo en caso de ejecutarse en localhost/mvc/, reemplazar por path raíz
-        $path = str_replace ("/mvc/", "/", $_SERVER["REQUEST_URI"]) ?? '/';
+        $path = str_replace ("/".APP_NAME."/", "/", $_SERVER["REQUEST_URI"]) ?? '/';
         $position = strpos ($path, '?');
         if ($position === false)
         {
