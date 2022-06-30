@@ -1,4 +1,5 @@
 <h1>Contact</h1>
+<h5><?php echo $name; ?></h5>
 
 <form action="" method="post">
     <div>

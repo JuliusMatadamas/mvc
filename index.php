@@ -12,6 +12,8 @@ require_once __DIR__.'/vendor/autoload.php';
  * Se carga el namespace de la aplicación
  * ================================================================================================
  */
+
+use app\controllers\ContactController;
 use app\core\Application;
 
 /**
@@ -27,10 +29,8 @@ $app = new Application(dirname (__DIR__));
  * ================================================================================================
  */
 $app->router->get('/', 'home');
-$app->router->get('/contact', 'contact');
-$app->router->post('/contact', function(){
-    echo "Handling submitted form contact.";
-});
+$app->router->get('/contact', [ContactController::class, 'index']);
+$app->router->post('/contact', [ContactController::class, 'create']);
 
 /**
  * ================================================================================================
