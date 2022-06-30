@@ -13,7 +13,9 @@ require_once __DIR__.'/vendor/autoload.php';
  * ================================================================================================
  */
 
+use app\controllers\AuthController;
 use app\controllers\ContactController;
+use app\controllers\RegisterController;
 use app\core\Application;
 
 /**
@@ -31,6 +33,10 @@ $app = new Application(dirname (__DIR__));
 $app->router->get('/', 'home');
 $app->router->get('/contact', [ContactController::class, 'index']);
 $app->router->post('/contact', [ContactController::class, 'create']);
+$app->router->get('/login', [AuthController::class, 'index']);
+$app->router->post('/login', [AuthController::class, 'login']);
+$app->router->get('/register', [RegisterController::class, 'index']);
+$app->router->post('/register', [RegisterController::class, 'create']);
 
 /**
  * ================================================================================================

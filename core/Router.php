@@ -14,6 +14,7 @@ class Router
      * Propiedades de la clase
      * ============================================================================================
      */
+    public string $layout = 'main';
     public Request $request;
     public Response $response;
     protected array $routes = [];
@@ -27,6 +28,16 @@ class Router
     {
         $this->request = $request;
         $this->response = $response;
+    }
+
+    /**
+     * ============================================================================================
+     * Método para modificar el valor de la propiedad layout
+     * ============================================================================================
+     */
+    public function setLayout($layout)
+    {
+        $this->layout = $layout;
     }
 
     /**
@@ -97,13 +108,24 @@ class Router
         return str_replace ('{{content}}', $viewContent, $layoutContent);
     }
 
+    /**
+     * ============================================================================================
+     * Método para cargar la plantilla principal
+     * ============================================================================================
+     */
     protected function layoutContent()
     {
+        $layout = $this->layout;
         ob_start ();
-        include_once Application::$ROOT_DIR."/views/layouts/main.php";
+        include_once Application::$ROOT_DIR."/views/layouts/$layout.php";
         return ob_get_clean ();
     }
 
+    /**
+     * ============================================================================================
+     * Método para cargar la vista solicitada
+     * ============================================================================================
+     */
     protected function renderOnlyView($view, $params)
     {
         foreach ($params as $key => $value)
