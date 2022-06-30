@@ -28,7 +28,7 @@
     <br/>
     <div>
         <label>Confirm your password</label>
-        <input type="password" name="password_confirm" id="password_confirm">
+        <input type="password" name="passwordConfirm" id="passwordConfirm">
     </div>
     <br/>
     <div>

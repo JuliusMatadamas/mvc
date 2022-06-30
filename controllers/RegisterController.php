@@ -6,6 +6,7 @@ namespace app\controllers;
 
 use app\core\Application;
 use app\core\Request;
+use app\models\User;
 
 class RegisterController
 {
@@ -16,14 +17,23 @@ class RegisterController
 
     public function create(Request $request)
     {
+        $user = new User();
         if ($request->isPost ())
         {
-            $body = $request->getBody ();
+            $user->loadData ($request->getBody ());
+
+            if ($user->validate () && $user->create())
+            {
+                return 'success';
+            }
+
             echo "<pre>";
-            var_dump ($body);
+            var_dump ($user->errors);
             echo "</pre>";
             exit;
+
+            return Application::$app->router->renderView ('register', ['user' => $user]);
         }
-        echo "Verify data to register";
+        Application::$app->router->setLayout ('auth');
     }
 }
