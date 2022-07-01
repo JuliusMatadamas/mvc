@@ -20,6 +20,16 @@ class User extends Model
     public string $password;
     public string $passwordConfirm;
 
+    public function __construct()
+    {
+        $this->firstname = "";
+        $this->lastname = "";
+        $this->birthdate = "";
+        $this->email = "";
+        $this->password = "";
+        $this->passwordConfirm = "";
+    }
+
     public function create()
     {
     }

@@ -15,6 +15,8 @@ class Router
      * ============================================================================================
      */
     public string $layout = 'main';
+    public string $css = '<link rel="stylesheet" href="../../public/css/{{css}}.css">';
+    public string $js = '<script src="../../public/js/{{js}}.js"></script>';
     public Request $request;
     public Response $response;
     protected array $routes = [];
@@ -90,11 +92,32 @@ class Router
      * Método para renderizar la vista solicitada según la url
      * ============================================================================================
      */
-    public function renderView($view, $params = [])
+    public function renderView($view, $params = [], $attach = '')
     {
         $layoutContent = $this->layoutContent ();
         $viewContent = $this->renderOnlyView ($view, $params);
-        return str_replace ('{{content}}', $viewContent, $layoutContent);
+
+        if (file_exists (Application::$ROOT_DIR."/public/css/$attach.css"))
+        {
+            $newCss = str_replace ('{{css}}', $attach, $this->css);
+            $renderCss = str_replace ('{{css}}', $newCss, $layoutContent);
+        }
+        else
+        {
+            $renderCss = $layoutContent;
+        }
+
+        if (file_exists (Application::$ROOT_DIR."/public/js/$attach.js"))
+        {
+            $newJs = str_replace ('{{js}}', $attach, $this->js);
+            $renderJs = str_replace ('{{js}}', $newJs, $renderCss);
+        }
+        else
+        {
+            $renderJs = $renderCss;
+        }
+
+        return str_replace ('{{content}}', $viewContent, $renderJs);
     }
 
     /**

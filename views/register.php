@@ -3,7 +3,10 @@
 <form action="" method="post">
     <div>
         <label>Introduce your firstname</label>
-        <input type="text" name="firstname" id="firstname">
+        <input type="text" name="firstname" id="firstname" class="<?php echo $user->hasError('firstname') ? 'error' : '' ?>" value="<?php echo $user->firstname; ?>">
+        <div class="invalid-feedback">
+            <?php echo $user->getFirstError('firstname'); ?>
+        </div>
     </div>
     <br/>
     <div>

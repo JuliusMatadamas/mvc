@@ -12,12 +12,15 @@ class RegisterController
 {
     public function index()
     {
-        return Application::$app->router->renderView ('register');
+        $user = new User();
+        Application::$app->router->setLayout ('auth');
+        return Application::$app->router->renderView ('register', ['user' => $user], 'register');
     }
 
     public function create(Request $request)
     {
         $user = new User();
+
         if ($request->isPost ())
         {
             $user->loadData ($request->getBody ());
@@ -27,13 +30,16 @@ class RegisterController
                 return 'success';
             }
 
-            echo "<pre>";
+            /*echo "<pre>";
             var_dump ($user->errors);
             echo "</pre>";
-            exit;
+            exit;*/
 
+            Application::$app->router->setLayout ('auth');
             return Application::$app->router->renderView ('register', ['user' => $user]);
         }
+
         Application::$app->router->setLayout ('auth');
+        return Application::$app->router->renderView ('register', ['user' => $user]);
     }
 }
