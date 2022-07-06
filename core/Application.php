@@ -12,6 +12,7 @@ class Application
      * ============================================================================================
      */
     public static string $ROOT_DIR;
+    public Database $db;
     public Router $router;
     public Request $request;
     public Response $response;
@@ -22,7 +23,7 @@ class Application
      * Application constructor.
      * ============================================================================================
      */
-    public function __construct($rootPath)
+    public function __construct($rootPath, array $config)
     {
         /**
          * Si el proyecto no se encuentra en el servidor local
@@ -42,6 +43,7 @@ class Application
         $this->request = new Request();
         $this->response = new Response();
         $this->router = new Router($this->request, $this->response);
+        $this->db = new Database($config['db']);
     }
 
     /**
