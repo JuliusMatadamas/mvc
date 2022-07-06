@@ -104,7 +104,7 @@ class Router
         }
         else
         {
-            $renderCss = $layoutContent;
+            $renderCss = str_replace ('{{css}}', '<!-- css file not found -->', $layoutContent);
         }
 
         if (file_exists (Application::$ROOT_DIR."/public/js/$attach.js"))
@@ -114,7 +114,7 @@ class Router
         }
         else
         {
-            $renderJs = $renderCss;
+            $renderJs = str_replace ('{{js}}', '<!-- js file not found -->', $renderCss);
         }
 
         return str_replace ('{{content}}', $viewContent, $renderJs);
