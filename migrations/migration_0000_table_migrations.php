@@ -1,18 +1,15 @@
 <?php
 
 
-namespace app\migrations;
-
-
 class migration_0000_table_migrations
 {
     public function up()
     {
-        echo "Applying migration";
+        echo "Up function executed.".PHP_EOL;
     }
 
     public function down()
     {
-        echo "Down migration";
+        echo "Down function executed".PHP_EOL;
     }
 }

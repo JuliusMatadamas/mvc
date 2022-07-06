@@ -30,9 +30,16 @@ class Application
          * Se define como la ruta de archivos la ubicación del
          * servidor externo
          */
-        if ( $_SERVER["REMOTE_ADDR"] !== "127.0.0.1" )
+        if (isset($_SERVER["REMOTE_ADDR"]) && $_SERVER["REMOTE_ADDR"] !== "127.0.0.1")
         {
-            $_SERVER["REMOTE_ADDR"] !== "::1" ? self::$ROOT_DIR = $rootPath.'/mvc1.atwebpages.com/' : self::$ROOT_DIR = $rootPath.'/'.APP_NAME;
+            if (isset($_SERVER["REMOTE_ADDR"]) && $_SERVER["REMOTE_ADDR"] !== "::1")
+            {
+                self::$ROOT_DIR = $rootPath.'/mvc1.atwebpages.com/';
+            }
+            else
+            {
+                self::$ROOT_DIR = $rootPath.'/'.APP_NAME;
+            }
         }
         else
         {
