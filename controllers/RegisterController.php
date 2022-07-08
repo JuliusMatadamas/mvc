@@ -25,7 +25,7 @@ class RegisterController
         {
             $user->loadData ($request->getBody ());
 
-            if ($user->validate () && $user->create())
+            if ($user->validate () && $user->save())
             {
                 return 'success';
             }
@@ -36,10 +36,10 @@ class RegisterController
             exit;*/
 
             Application::$app->router->setLayout ('auth');
-            return Application::$app->router->renderView ('register', ['user' => $user]);
+            return Application::$app->router->renderView ('register', ['user' => $user], 'register');
         }
 
         Application::$app->router->setLayout ('auth');
-        return Application::$app->router->renderView ('register', ['user' => $user]);
+        return Application::$app->router->renderView ('register', ['user' => $user], 'register');
     }
 }

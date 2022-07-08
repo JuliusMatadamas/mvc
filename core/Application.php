@@ -25,6 +25,7 @@ class Application
      */
     public function __construct($rootPath, array $config)
     {
+        date_default_timezone_set('America/Mexico_City');
         /**
          * Si el proyecto no se encuentra en el servidor local
          * Se define como la ruta de archivos la ubicación del

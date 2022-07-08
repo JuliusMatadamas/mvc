@@ -43,7 +43,9 @@ class Database
             require_once Application::$ROOT_DIR.'/migrations/'.$migration;
             $className = pathinfo ($migration, PATHINFO_FILENAME);
             $instance = new $className();
-            // $instance->up();
+            $this->log ("Applying migration: $migration");
+            $instance->up();
+            $this->log ("Migration $migration applyied!");
             $newMigrations[] = $migration;
         }
 
@@ -53,7 +55,7 @@ class Database
         }
         else
         {
-            echo "All migrations are applied";
+            $this->log ("All migrations are applied");
         }
     }
 
@@ -80,5 +82,10 @@ class Database
         $migrations = implode (",", array_map (fn($m) => "('$m')", $migrations));
         $statement = $this->pdo->prepare ("INSERT INTO migrations (migration) VALUES $migrations");
         $statement->execute ();
+    }
+
+    protected function log($message)
+    {
+        echo "[".date('Y-m-d H:i:s')."] - $message".PHP_EOL;
     }
 }

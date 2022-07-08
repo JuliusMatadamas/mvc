@@ -4,9 +4,10 @@
 namespace app\models;
 
 
+use app\core\DbModel;
 use app\core\Model;
 
-class User extends Model
+class User extends DbModel
 {
     /**
      * ============================================================================================
@@ -30,8 +31,15 @@ class User extends Model
         $this->passwordConfirm = "";
     }
 
-    public function create()
+    public function tableName(): string
     {
+        return 'users';
+    }
+
+    public function save()
+    {
+        $this->password = password_hash ($this->password, PASSWORD_DEFAULT);
+        return parent::save();
     }
 
     public function rules(): array
@@ -44,5 +52,10 @@ class User extends Model
             'password' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 5], [self::RULE_MAX, 'max' => 10]],
             'passwordConfirm' => [self::RULE_REQUIRED, [self::RULE_MATCH, 'match' => 'password']],
         ];
+    }
+
+    public function attributes(): array
+    {
+        return ['firstname', 'lastname', 'birthdate', 'email', 'password'];
     }
 }
